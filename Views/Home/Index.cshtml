@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Assignment2.Models.BlogPosts>
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "_Layout";
+}
+<hr style="margin-top:100px !important;" />
+<h3>Current Posts</h3>
+
+<div class="container">
+
+    @if (Model == null || Model.Count() == 0)
+    {
+
+        <p> No posts available.</p>
+
+    }
+
+    else
+    {
+
+        @foreach (var item in Model)
+        {
+
+            <div class="jumbotron" style="background-color: rgba(106, 121, 212, 0.91)">
+
+                <a asp-controller="Home" asp-action="DisplayFullBlogPost" asp-route-id="@item.BlogPostId">@item.Title</a>
+                <p>@item.Content.Substring(0, Math.Min(@item.Content.Length, 100)) ...</p>
+                <p>Posted on: @item.Posted</p>
+            </div>
+
+                    @if (Context.Session.GetInt32("RoleId") == 1 && Context.Session.GetString("UserId") != null)
+                    {
+                        <div class="col-sm-8" style="background-color: #ff00dc">
+                            <a class="btn btn-xs btn-primary" asp-controller="Home" asp-action="EditBlogPost" asp-route-id="@item.BlogPostId">Edit Post</a>
+                            <a class="btn btn-xs btn-danger" asp-controller="Home" asp-action="DeleteBlogPost" onclick="return confirm('Are you sure to delete?');" asp-route-id="@item.BlogPostId">Delete Post</a>
+                            <hr />
+                        </div>
+                    }
+
+        }
+
+    }
+
+
+
+
+</div>
+
+
+

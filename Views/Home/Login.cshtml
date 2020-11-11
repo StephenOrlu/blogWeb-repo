@@ -1,0 +1,26 @@
+﻿@model Assignment2.Models.Users
+@{
+    Layout = "_Layout";
+
+
+}
+<h3>Login</h3>
+
+<form asp-controller="Home" asp-action="AuthenticateUser" method="post">
+
+    <div class="form-group">
+        <fieldset>
+            <div class="form-group">
+                <label for="email"> Email Address</label>
+                <input type="email" name="EmailAddress" class="form-control" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+                <label for="password"> Password</label>
+                <input type="password" name="password" placeholder="Password" class="form-control" required />
+            </div>
+
+        </fieldset>
+    </div>
+
+    <button type="submit" class="btn btn-large btn-success">Login Now</button>
+</form>

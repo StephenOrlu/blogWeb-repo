@@ -1,0 +1,62 @@
+﻿@model Assignment2.ViewModels.BlogPostViewModel
+@using Microsoft.AspNetCore.Http;
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    Layout = "_Layout";
+    ViewBag.Title = Model.BlogPost.Title;
+
+
+}
+<hr style="margin-top:100px !important;" />
+
+<div class="container">
+    <div class="jumbotron">
+        <span class="glyphicon glyphicon-book"></span>
+        <span>
+            <b>@Model.BlogPost.Title</b><br />
+            Posted On: @Model.BlogPost.Posted<br />
+            Poster Email: @Model.User.EmailAddress<br />
+            By: @Model.User.FirstName @Model.User.LastName
+        </span>
+        <h6>@Model.BlogPost.Content</h6>
+
+
+        <h3>@Model.Comment.Capacity comment(s)</h3>
+        @foreach (var c in Model.Comment)
+            {
+            <div>
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span>
+                    By: @c.authorName
+                </span>
+
+                <p>@c.Comment.Content</p>
+
+
+            </div>
+        }
+
+
+
+
+
+
+        <hr />
+        @if (Context.Session.GetString("UserId") != null)
+        {
+            <div class="form-group">
+                <h5>Comment</h5>
+                <form asp-controller="Home" asp-action="DisplayFullBlogPost" method="post">
+                    <input type="hidden" name="BlogPostId" value="@Model.BlogPost.BlogPostId" />
+
+                    <textarea type="text" name="Content" data-length="5000" class="form-control"></textarea><br />
+                    <button class="btn btn-large btn-success" type="submit">Submit</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
